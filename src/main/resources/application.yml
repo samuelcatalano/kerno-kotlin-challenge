@@ -1,0 +1,37 @@
+mp:
+  messaging:
+    incoming:
+      kafka-consumer:
+        auto:
+          offset:
+            reset: earliest
+        bootstrap:
+          servers: localhost:29092
+        connector: smallrye-kafka
+        group:
+          id: ${user.name}
+        key:
+          deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        topic: k8s-resources
+        tracing-enabled: false
+        value:
+          deserializer: io.kerno.challenge.deserializer.WorkloadDeserializer
+quarkus:
+  datasource:
+    db-kind: postgresql
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: C7SQKr@g6SwtXNi
+  hibernate-orm:
+    database:
+      generation: update
+  http:
+    port: 8095
+  banner:
+    enabled: true
+    path: banner.txt
+  log:
+    console:
+      level: DEBUG
+    level: INFO
